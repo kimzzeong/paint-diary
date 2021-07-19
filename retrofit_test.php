@@ -9,7 +9,9 @@
   $sql = mq("INSERT INTO test
   (data,pass)
   VALUES('{$_POST['userid']}','{$_POST['userpw']}')");
-  echo $query;
+  $response['msg'] = 'msg입니당';
 
+  
+  echo $query;
   }
 ?>

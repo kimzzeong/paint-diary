@@ -1,3 +1,6 @@
 <?php
-echo "first commit";
+$password = password_hash("11", PASSWORD_BCRYPT );
+
+echo gettype($password);
+
 ?>
