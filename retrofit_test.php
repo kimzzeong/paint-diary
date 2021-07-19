@@ -10,8 +10,9 @@
   (data,pass)
   VALUES('{$_POST['userid']}','{$_POST['userpw']}')");
   $response['msg'] = 'msg입니당';
+  $response['code'] = 'code입니당';
 
   
-  echo $query;
+  echo json_encode($response);
   }
 ?>
