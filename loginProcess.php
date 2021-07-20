@@ -23,6 +23,9 @@
               $response['user_idx'] = $user['user_idx'];
               $response['user_nickname'] = $user['user_nickname'];
           }
+        }else{
+          $response['user_idx'] = null;
+          $response['user_nickname'] = null;
         }
       }
       echo json_encode($response);
