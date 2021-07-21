@@ -22,10 +22,12 @@
             $user = $sql_userIdx->fetch_array();
               $response['user_idx'] = $user['user_idx'];
               $response['user_nickname'] = $user['user_nickname'];
+              $response['status'] = 'success';
           }
         }else{
           $response['user_idx'] = null;
           $response['user_nickname'] = null;
+          $response['status'] = 'fail';
         }
       }
       echo json_encode($response);
