@@ -17,17 +17,23 @@
         $sql_password=mq("SELECT * FROM user where user_email='$user_email' && user_password='$hash_pw'");
 
         if($result=mysqli_fetch_array($sql_password)){//쿼리문을 실행해서 결과가 있으면 로그인 성공
-          if (password_verify($user_password, $hash_pw)) {
-            $sql_userIdx=mq("SELECT * FROM user where user_email='".$user_email."'");
-            $user = $sql_userIdx->fetch_array();
-              $response['user_idx'] = $user['user_idx'];
-              $response['user_nickname'] = $user['user_nickname'];
-              $response['status'] = 'success';
+          $sql_userIdx=mq("SELECT * FROM user where user_email='".$user_email."'");
+          $user = $sql_userIdx->fetch_array();
+          if($user['user_status'] == 1){
+            $response['user_idx'] = null;
+            $response['user_nickname'] = null;
+            $response['status'] = 'null';
+          }else{
+            if (password_verify($user_password, $hash_pw)) {
+                $response['user_idx'] = $user['user_idx'];
+                $response['user_nickname'] = $user['user_nickname'];
+                $response['status'] = 'success';
+            }else{
+              $response['user_idx'] = null;
+              $response['user_nickname'] = null;
+              $response['status'] = 'fail';
+            }
           }
-        }else{
-          $response['user_idx'] = null;
-          $response['user_nickname'] = null;
-          $response['status'] = 'fail';
         }
       }
       echo json_encode($response);
