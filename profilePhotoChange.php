@@ -1,12 +1,9 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-    $user_idx_post = $_POST['user_idx'];
-    $user_nickname_post = $_POST['user_nickname'];
-    $user_introduction_post = $_POST['user_introduction'];
-    $user_idx = str_replace('"', '', $user_idx_post);
-    $user_nickname = str_replace('"', '', $user_nickname_post);
-    $user_introduction = str_replace('"', '', $user_introduction_post);
+    $user_idx = $_POST['user_idx'];
+    $user_nickname = $_POST['user_nickname'];
+    $user_introduction = $_POST['user_introduction'];
     
     $sql = mq("select * from user where user_idx='".$user_idx."'");
     $user = $sql->fetch_array();
@@ -51,7 +48,5 @@ include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
     }
 
          echo json_encode($response);
-    // date_default_timezone_set('Asia/Seoul'); //시간 서울로 세팅
-    // echo date("Y-m-d H:i:s");
     // phpinfo();
 ?>
