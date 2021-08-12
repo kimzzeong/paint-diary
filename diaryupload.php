@@ -1,6 +1,7 @@
 <?php
 
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
+$con=mysqli_connect("localhost","jeongin","cru0817!!","paint_diary");
 
     date_default_timezone_set('Asia/Seoul'); //시간 서울로 세팅
     $date = date("Y-m-d H:i:s");
@@ -22,13 +23,15 @@ include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
             move_uploaded_file($tmp_name, $img_upload_path);
             
-            $sql = mq("INSERT INTO diary
+            mysqli_query($con,"INSERT INTO diary
             (diary_writer,diary_title,diary_weather,diary_range,diary_content,diary_secret,diary_date,diary_status,diary_painting)
             VALUES('{$_POST['user_idx']}','{$_POST['diary_title']}','{$_POST['diary_weather']}','{$_POST['diary_range']}',
             '{$_POST['diary_content']}','{$_POST['diary_secret']}','{$date}','0','{$img_name}')");
 
         }
-        $response['message'] = $_POST['diary_secret'];
+        //$response['message'] = "글이 정상적으로 등록되었습니다.";
+        $diary_idx = mysqli_insert_id($con);
+        $response['diary_idx'] = mysqli_insert_id($con) ;
         echo json_encode($response);
     }
 ?>
