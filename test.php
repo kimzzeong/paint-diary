@@ -1,30 +1,27 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-$user_idx = $_GET['user_idx'];
-$password = $_GET['password'];
-$new_password = $_GET['change_password'];
-$check_new_password = $_GET['change_password_check'];
+if(isset($_POST['diary_idx']) && isset($_POST['diary_writer'])){
+
+  $sql = mq("SELECT * FROM diary where diary_idx = '".$_POST['diary_idx']."'");
+  $diary =  $sql->fetch_array();
+  $sql_user = mq("SELECT * FROM user where user_idx = '".$_POST['diary_writer']."'");
+  $user =  $sql_user->fetch_array();
+  //글쓴이 프로필 부분
+  $response['user_intro'] = $user['user_introduction'];
+  $response['diary_nickname'] = $user['user_nickname'];
+  $response['user_profile'] = $user['user_profile'];
+  
+  //일기 정보 부분
+  $response['diary_painting'] = $diary['diary_painting'];
+  $response['diary_date'] = $diary['diary_date'];
+  $response['diary_title'] = $diary['diary_title'];
+  $response['diary_weather'] = $diary['diary_weather'];
+  $response['diary_range'] = $diary['diary_range'];
+  $response['diary_content'] = $diary['diary_content'];
+  $response['diary_secret'] = $diary['diary_secret'];
+}
 
 
-$password_check = mq("select user_password from user where user_idx='{$user_idx}'");
-$password_check = $password_check->fetch_array();
-$hash_pw = $password_check['user_password'];
-
-  if ($new_password ==  $check_new_password) {
-    if(password_verify($password, $hash_pw)){
-      $hashedPassword = password_hash($new_password, PASSWORD_DEFAULT);
-      $fet = mq("update user set user_password = '".$hashedPassword."' where user_idx = '".$user_idx."'");
-        $response['status'] = 1;
-        $response['message'] = "비밀번호가 정상적으로 변경되었습니다.";
-    }else{
-        $response['status'] = 0;
-        $response['message'] = "비밀번호가 일치하지 않습니다.";
-    }
-  }else{
-    $response['status'] = 0;
-    $response['message'] = "비밀번호가 일치하지 않습니다.";
-  }
-
-  echo json_encode($response);
+echo json_encode($response);
 ?>
