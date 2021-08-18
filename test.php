@@ -11,7 +11,7 @@ while($row = mysqli_fetch_assoc($sql)){
     $sql_user = mq("select * from user where user_idx='".$row['diary_writer']."'"); /* 받아온 idx값을 선택 */
     $user = $sql_user->fetch_array();
     $date = $row['diary_date'];
-    $type;
+    $type = 1;
     array_push($response,
     array(
         'diary_idx' => $row['diary_idx'],
