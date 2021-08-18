@@ -1,19 +1,29 @@
 <?php
+header("Content-type:application/json");
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-$user_idx = 28;
-$diary_idx = 35;
+$sql = mq("select * from diary where diary_status = 0 order by diary_idx desc");
+$response = array();
 
 
-$sql = mq("select * from user_diary_like where user_idx = '".$user_idx."' and diary_idx = '".$diary_idx."'");
-$result = $sql -> fetch_array();
-if(isset($result)){
-    if($like_status == 1){
-        $like_status = 0;
-    }else{
-        $like_status = 1;
-    }
 
-    print_r($result);
+while($row = mysqli_fetch_assoc($sql)){
+    $sql_user = mq("select * from user where user_idx='".$row['diary_writer']."'"); /* 받아온 idx값을 선택 */
+    $user = $sql_user->fetch_array();
+    $date = $row['diary_date'];
+    $type;
+    array_push($response,
+    array(
+        'diary_idx' => $row['diary_idx'],
+        'diary_title' => $row['diary_title'],
+        'diary_writer' => $row['diary_writer'],
+        'diary_painting' => $row['diary_painting'],
+        'user_nickname' => $user['user_nickname'],
+        'diary_date' => $row['diary_date'],
+        'type' => $type
+
+    ));
 }
+
+echo json_encode($response);
 ?>
