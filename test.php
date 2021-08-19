@@ -2,16 +2,21 @@
 header("Content-type:application/json");
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-$sql = mq("select * from diary where diary_status = 0 order by diary_idx desc");
+$sql = mq("select * from diary where diary_status = 0 and diary_writer = '".$_POST['diary_wirter']."' order by diary_idx desc");
 $response = array();
+$date = 0;
 
 
 
 while($row = mysqli_fetch_assoc($sql)){
     $sql_user = mq("select * from user where user_idx='".$row['diary_writer']."'"); /* 받아온 idx값을 선택 */
     $user = $sql_user->fetch_array();
-    $date = $row['diary_date'];
-    $type = 1;
+    $date_sub = substr($row['diary_date'], 0, 7);
+    if($date != $date_sub){
+        $type = 0;
+    }else{
+        $type = 1;
+    }
     array_push($response,
     array(
         'diary_idx' => $row['diary_idx'],
@@ -23,6 +28,8 @@ while($row = mysqli_fetch_assoc($sql)){
         'type' => $type
 
     ));
+    
+    $date = $date_sub;
 }
 
 echo json_encode($response);
