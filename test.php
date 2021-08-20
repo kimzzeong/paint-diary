@@ -14,6 +14,13 @@ while($row = mysqli_fetch_assoc($sql)){
     $date_sub = substr($row['diary_date'], 0, 7);
     if($date != $date_sub){
         $type = 0;
+        array_push($response,
+    array(
+        'diary_date' => $row['diary_date'],
+        'type' => $type
+
+    ));
+    $type = 1;
     }else{
         $type = 1;
     }
