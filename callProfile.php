@@ -1,5 +1,5 @@
 <?php
-    include "db.php";
+    include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
     if(isset( $_POST['user_idx'])){
         $user_idx = $_POST['user_idx'];
         $query = mq("SELECT * FROM user where user_idx = '".$user_idx."'");
