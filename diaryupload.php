@@ -26,7 +26,7 @@ $con=mysqli_connect("localhost","jeongin","cru0817!!","paint_diary");
             mysqli_query($con,"INSERT INTO diary
             (diary_writer,diary_title,diary_weather,diary_range,diary_content,diary_secret,diary_date,diary_status,diary_painting)
             VALUES('{$_POST['user_idx']}','{$_POST['diary_title']}','{$_POST['diary_weather']}','{$_POST['diary_range']}',
-            '{$_POST['diary_content']}','{$_POST['diary_secret']}','{$date}','0','{$img_name}')");
+            '{$_POST['diary_content']}','{$_POST['diary_secret']}','{$_POST['diary_date']}','0','{$img_name}')");
 
         }
         //$response['message'] = "글이 정상적으로 등록되었습니다.";

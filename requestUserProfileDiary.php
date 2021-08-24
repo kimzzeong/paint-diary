@@ -30,6 +30,7 @@ while($row = mysqli_fetch_assoc($sql)){
         'diary_title' => $row['diary_title'],
         'diary_writer' => $row['diary_writer'],
         'diary_painting' => $row['diary_painting'],
+        'diary_secret' => $row['diary_secret'],
         'user_nickname' => $user['user_nickname'],
         'diary_date' => $row['diary_date'],
         'type' => $type
