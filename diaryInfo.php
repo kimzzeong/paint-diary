@@ -3,7 +3,9 @@ include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
 if(isset($_POST['diary_idx']) && isset($_POST['diary_writer'])){
 
-  $sql = mq("SELECT * FROM diary where diary_idx = '".$_POST['diary_idx']."'");
+  $diary_idx = $_POST['diary_idx'];
+  $sql = mq("SELECT * FROM diary where diary_idx = '".$diary_idx."' and diary_status = 0");
+  $sql_diary = mq("select * from diary where diary_idx = '".$diary_idx."' and diary_status = 1");
   $diary =  $sql->fetch_array();
   $sql_user = mq("SELECT * FROM user where user_idx = '".$_POST['diary_writer']."'");
   $user =  $sql_user->fetch_array();
@@ -20,6 +22,7 @@ if(isset($_POST['diary_idx']) && isset($_POST['diary_writer'])){
   $response['diary_range'] = $diary['diary_range'];
   $response['diary_content'] = $diary['diary_content'];
   $response['diary_secret'] = $diary['diary_secret'];
+  $response['diary_status'] = mysqli_num_rows($sql_diary);
 }
 
 
