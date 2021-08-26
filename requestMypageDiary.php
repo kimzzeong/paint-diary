@@ -2,7 +2,7 @@
 header("Content-type:application/json");
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-$sql = mq("select * from diary where diary_status = 0 and diary_writer = '".$_POST['diary_wirter']."' order by diary_date desc, diary_idx desc");
+$sql = mq("select * from diary where diary_writer = '".$_POST['diary_wirter']."' order by diary_date desc, diary_idx desc");
 $response = array();
 $date = 0;
 

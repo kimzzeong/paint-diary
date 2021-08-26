@@ -12,6 +12,7 @@ while($row = mysqli_fetch_assoc($sql)){
         'comment_profile' => $user['user_profile'],
         'comment_writer' => $row['comment_writer'],
         'comment_idx' => $row['comment_idx'],
+        'comment_secret' => $row['comment_secret'],
         'comment_content' => $row['comment_content'],
         'comment_nickname' => $user['user_nickname']
 
