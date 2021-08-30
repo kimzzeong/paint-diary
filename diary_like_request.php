@@ -2,6 +2,7 @@
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 $diary_idx = $_GET['diary_idx'];
 $user_idx = $_GET['user_idx'];
+
 $sql = mq("select * from user_diary_like where diary_idx = '".$diary_idx."' and like_status = 1");
 $result = $sql -> fetch_array();
 $sql_comments_count = mq("select * from diary_comments where diary_idx = '".$diary_idx."' and comment_status = 0");
