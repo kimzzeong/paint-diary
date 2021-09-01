@@ -1,7 +1,7 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-$sql = mq("select * from diary_recomments where comment_idx = '25' and recomment_status = 0 order by recomment_datetime");
+$sql = mq("select * from diary_recomments where comment_idx = '".$_POST['comment_idx']."' and recomment_status = 0 order by recomment_datetime");
 $response = array();
 while($row = mysqli_fetch_assoc($sql)){
     $sql_user = mq("select * from user where user_idx='".$row['recomment_writer']."'"); /* 받아온 idx값을 선택 */
