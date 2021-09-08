@@ -6,7 +6,8 @@ $user_idx = $_GET['user_idx'];
 $sql = mq("select * from user_diary_like where diary_idx = '".$diary_idx."' and like_status = 1");
 $result = $sql -> fetch_array();
 $sql_comments_count = mq("select * from diary_comments where diary_idx = '".$diary_idx."' and comment_status = 0");
-$response['comments_count'] = mysqli_num_rows($sql_comments_count);
+$sql_recomments_count = mq("select * from diary_recomments where diary_idx = '".$diary_idx."' and recomment_status = 0");
+$response['comments_count'] = mysqli_num_rows($sql_comments_count)+mysqli_num_rows($sql_recomments_count);
 if(isset($result)){
   $sql_like = mq("select * from user_diary_like where diary_idx = '".$diary_idx."' and user_idx = '".$user_idx."'");
   $fetch = $sql_like->fetch_array();

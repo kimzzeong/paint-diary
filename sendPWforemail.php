@@ -1,7 +1,5 @@
 <?php
   include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
-  session_start();
-  $nickname = $_SESSION['user_nickname'];
 /**
  * This example shows settings to use when sending via Google's Gmail servers.
  * This uses traditional id & password authentication - look at the gmail_xoauth.phps
@@ -28,7 +26,7 @@ $mail->isSMTP();
 $mail->SMTPDebug = SMTP::DEBUG_OFF;
 
 //Set the hostname of the mail server
-$mail->Host = 'smtp.naver.com';
+$mail->Host = 'smtp.gmail.com';
 //Use `$mail->Host = gethostbyname('smtp.gmail.com');`
 //if your network does not support SMTP over IPv6,
 //though this may cause issues with TLS
@@ -43,24 +41,24 @@ $mail->SMTPSecure = "ssl";
 $mail->SMTPAuth = true;
 
 //Username to use for SMTP authentication - use full email address for gmail
-$mail->Username = 'kimmju12';
+$mail->Username = 'paintdiary1@gmail.com';
 
 //Password to use for SMTP authentication
-$mail->Password = 'Z9D8YZJT66WN';
+$mail->Password = 'cru0817!!';
 
 $mail->CharSet = 'UTF-8';
 
 //Set who the message is to be sent from
-$mail->setFrom('kimmju12@naver.com', 'Yummy');
+$mail->setFrom('paintdiary1@gmail.com', 'PaintDiary'); //paintdiary1@gmail.com
 
 //Set an alternative reply-to address
-$mail->addReplyTo('kimmju12@naver.com', 'Yummy');
+$mail->addReplyTo('paintdiary1@gmail.com', 'PaintDiary');
 
 //Set who the message is to be sent to ->받는사람
-$mail->addAddress($_POST['email'], 'cru');
+$mail->addAddress($email, '');
 
 //Set the subject line
-$mail->Subject = 'Yummy! 비밀번호 변경';
+$mail->Subject = '임시 비밀번호';
 
 $characters  = "0123456789";
 $characters .= "abcdefghijklmnopqrstuvwxyz";
@@ -74,12 +72,6 @@ while ($nmr_loops--)
 {
     $string_generated .= $characters[mt_rand(0, strlen($characters) - 1)];
 }
-//echo $string_generated;
-//Read an HTML message body from an external file, convert referenced images to embedded,
-//convert HTML into a basic plain-text alternative body
-// $mail->msgHTML("안녕하세요, Yummy! 입니다.
-// 회원님의 비밀번호는 [ $string_generated; ] 입니다.");
-
 //Replace the plain text body with one created manually
 $mail->isHTML(true);
  $mail->Body = '<html>
@@ -95,7 +87,7 @@ $mail->isHTML(true);
 
 //여기에 sql로 비번 변경
 $hashedPassword = password_hash($string_generated, PASSWORD_DEFAULT);
-$fet = mq("update member set password = '".$hashedPassword."' where nickname = '".$nickname."'");
+$fet = mq("update user set user_password = '".$hashedPassword."' where user_email = '".$email."'");
 //Attach an image file
 // $mail->addAttachment('img/logo.png');
 
@@ -103,15 +95,15 @@ $fet = mq("update member set password = '".$hashedPassword."' where nickname = '
 if (!preg_match("/^[a-zA-Z]{1}[a-zA-Z0-9.\-_]+@[a-z0-9]{1}[a-z0-9\-]+[a-z0-9]{1}\.(([a-z]{1}[a-z.]+[a-z]{1})|([a-z]+))$/",$email))
   {
   // echo "<script>alert('이메일 보내기에 실패했습니다.\n이메일을 다시 확인해주세요.');</script>";
-  echo "<script>alert('이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.'); history.back();</script>";
+  echo "1이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.";
 }else{
 if (!$mail->send()) {
-  echo "<script>alert('이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.'); history.back();</script>";
-    // echo 'Mailer Error: ' . $mail->ErrorInfo;
+ // echo "2이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.";
+     echo 'Mailer Error: ' . $mail->ErrorInfo;
 } else {
     // echo 'Message sent!';
     //수정해야함
-    echo "<script>alert('이메일이 성공적으로 보내졌습니다.');location.href='checkChangePW.php';</script>";
+    echo "이메일이 성공적으로 보내졌습니다.";
     //Section 2: IMAP
     //Uncomment these to save your message in the 'Sent Mail' folder.
     #if (save_mail($mail)) {
