@@ -2,7 +2,7 @@
 header("Content-type:application/json");
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-$sql = mq("select * from diary where diary_status = 0 and diary_secret = 0 order by diary_idx desc"); //diary_date desc, 
+$sql = mq("select * from diary where diary_status = 0 order by diary_idx desc"); //diary_date desc, 
 
 // $listing_num = $_POST['listing_num'];
 
@@ -33,6 +33,7 @@ while($row = mysqli_fetch_assoc($sql)){
         'diary_title' => $row['diary_title'],
         'diary_writer' => $row['diary_writer'],
         'diary_painting' => $row['diary_painting'],
+        'diary_secret' => $row['diary_secret'],
         'diary_date' => $row['diary_date'],
         'diary_like_count' => $like,
         'diary_comment_count' => $comment,

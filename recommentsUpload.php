@@ -6,8 +6,8 @@ if(isset($_POST['recomment_content']) && isset($_POST['comment_idx']) && isset($
     $date = date("Y-m-d H:i:s");
 
     $sql = mq("INSERT INTO diary_recomments
-            (recomment_content,comment_idx,recomment_writer,recomment_datetime,recomment_secret,recomment_status)
-            VALUES('{$_POST['recomment_content']}','{$_POST['comment_idx']}','{$_POST['recomment_writer']}','{$date}','{$_POST['recomment_secret']}','0')");
+            (recomment_content,comment_idx,recomment_writer,recomment_datetime,recomment_secret,recomment_status,diary_idx)
+            VALUES('{$_POST['recomment_content']}','{$_POST['comment_idx']}','{$_POST['recomment_writer']}','{$date}','{$_POST['recomment_secret']}','0','{$_POST['diary_idx']}')");
 
 // $sql = mq("INSERT INTO diary_comments
 //             (diary_idx,comment_writer,comment_datetime,comment_secret,comment_content,comment_status)
