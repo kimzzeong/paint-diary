@@ -67,7 +67,7 @@ $characters .= "_";
 
 $string_generated = "";
 
-$nmr_loops = 10;
+$nmr_loops = 8;
 while ($nmr_loops--)
 {
     $string_generated .= $characters[mt_rand(0, strlen($characters) - 1)];
@@ -79,14 +79,14 @@ $mail->isHTML(true);
 					<p> 회원님! </p>
 					<p> 회원님의 임시 비밀번호는 다음과 같습니다. </p>
 					<br>
-					<h1>[ '.$string_generated.' ]</h1>
+					<p>[ '.$string_generated.' ]</p>
 					<br>
 					<p> 반드시 비밀번호를 변경해주세요! </p>
 				</body>
 			 </html>';
 
 //여기에 sql로 비번 변경
-$hashedPassword = password_hash($string_generated, PASSWORD_DEFAULT);
+$hashedPassword = password_hash($string_generated, PASSWORD_BCRYPT);
 $fet = mq("update user set user_password = '".$hashedPassword."' where user_email = '".$email."'");
 //Attach an image file
 // $mail->addAttachment('img/logo.png');
@@ -95,13 +95,13 @@ $fet = mq("update user set user_password = '".$hashedPassword."' where user_emai
 if (!preg_match("/^[a-zA-Z]{1}[a-zA-Z0-9.\-_]+@[a-z0-9]{1}[a-z0-9\-]+[a-z0-9]{1}\.(([a-z]{1}[a-z.]+[a-z]{1})|([a-z]+))$/",$email))
   {
   // echo "<script>alert('이메일 보내기에 실패했습니다.\n이메일을 다시 확인해주세요.');</script>";
-  echo "1이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.";
+  echo "이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.";
 }else{
 if (!$mail->send()) {
- // echo "2이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.";
-     echo 'Mailer Error: ' . $mail->ErrorInfo;
+  echo "이메일 보내기에 실패했습니다. 이메일이 정확히 입력 되었는지 다시 확인해주세요.";
+     //echo 'Mailer Error: ' . $mail->ErrorInfo;
 } else {
-    // echo 'Message sent!';
+    // echo "[".$string_generated."]";
     //수정해야함
     echo "이메일이 성공적으로 보내졌습니다.";
     //Section 2: IMAP

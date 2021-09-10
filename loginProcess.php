@@ -14,7 +14,7 @@
         $nickname=mysqli_fetch_assoc($sql_nickname); //sql2의 결과값에서 닉네임만 변수에 넣기
 
         //sql문을 sql변수에 저장해놓는다.
-        $sql_password=mq("SELECT * FROM user where user_email='$user_email' && user_password='$hash_pw'");
+        $sql_password=mq("SELECT * FROM user where user_email='$user_email' && user_password = '$hash_pw'");
 
         if($result=mysqli_fetch_array($sql_password)){//쿼리문을 실행해서 결과가 있으면 로그인 성공
           $sql_useridx=mq("SELECT * FROM user where user_email='".$user_email."'");

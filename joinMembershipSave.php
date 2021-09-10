@@ -8,7 +8,7 @@
 
     $password = password_hash($_POST['user_password'], PASSWORD_BCRYPT );
 
-    if(isset($user['user_email']) && $user['status']=0){
+    if(isset($user['user_email']) && $user['status'] = 0){
       $response['status'] = "fail";
   
     }else{
