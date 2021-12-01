@@ -2,6 +2,8 @@
 header("Content-type:application/json");
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
+$user_idx = $_POST['user_idx'];
+
 $sql = mq("select * from chatRoom order by room_idx desc"); 
 
 $response = array();
