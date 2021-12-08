@@ -2,10 +2,9 @@
 header("Content-type:application/json");
 include $_SERVER['DOCUMENT_ROOT']."/db.php"; /* db load */
 
-$room_idx = "52"; // 현재 채팅방을 불러올 유저의 고유 아이디값
+$room_idx = $_POST['room_idx']; // 현재 채팅방을 불러올 유저의 고유 아이디값
 
 $sql = mq("select * from chat where room_idx = '".$room_idx."'"); 
-
 
 $response = array();
 
