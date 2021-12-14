@@ -19,7 +19,7 @@ while($row = mysqli_fetch_assoc($sql)){
         'room_idx' => $row['room_idx'],
         'chat_user' => $row['chat_user'],
         'chat_dateTime' => $row['chat_date'],
-        'chat_profile_photo' => $user['user_profile'],
+        'chat_profile_photo' => "http://3.36.52.195/profile/".$user['user_profile'],
         'chat_nickname' => $user['user_nickname'],
         'chat_type' => $row['chat_type']
     ));
